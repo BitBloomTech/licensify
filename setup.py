@@ -22,9 +22,17 @@ import versioneer
 
 PACKAGE_NAME = 'licensify'
 
+_here = path.abspath(path.dirname(__file__))
+
+with open(path.join(_here, 'README.md')) as fp:
+    README_CONTENTS = fp.read()
+
 install_requires = []
 
 tests_require = [
+    'pytest',
+    'pytest-cov',
+    'pylint',
     'tox'
 ]
 
@@ -34,9 +42,16 @@ extras_require = {
 }
 
 setup(
-    name='licensify',
+    name=PACKAGE_NAME,
+    license='GPLv3',
+    description='Utility to apply license headers to source code files',
+    long_description=README_CONTENTS,
+    author='Simmovation Ltd',
+    author_email='info@simmovation.tech',
+    url='https://github.com/Simmovation/licensify',
+    platforms='any',
     version=versioneer.get_version(),
-    packages=['licensify'],
+    packages=[PACKAGE_NAME],
     install_requires=install_requires,
     tests_require=tests_require,
     extras_require=extras_require,

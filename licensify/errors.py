@@ -14,9 +14,20 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
+"""Defines errors for the :mod:`licensify` module
+"""
+
 class LicensesOutOfDateError(Exception):
+    """Error raised when licenses are out of date
+    """
     def __init__(self, files):
+        """Initialises the :class:`LicensesOutOfDateError` class
+
+        :param files: The files that are out of date
+        :type files: list
+        """
+        super().__init__()
         self.files = files
-    
+
     def __repr__(self):
         return '{}({!r})'.format(type(self).__name__, self.files)

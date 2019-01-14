@@ -1,3 +1,8 @@
 .venv
 *.egg-info
 __pycache__
+.*
+!.gitignore
+!.gitattributes
+!.pylintrc
+!.coveragerc

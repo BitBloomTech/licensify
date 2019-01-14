@@ -14,9 +14,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
+""":mod:`licensify` module
+
+Defines the interface to the `licensify` module
+"""
 from .apply_license import apply_license_header
 from .errors import LicensesOutOfDateError
-from .__version__ import __version__
 
 from ._version import get_versions
 __version__ = get_versions()['version']

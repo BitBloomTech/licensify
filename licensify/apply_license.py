@@ -16,7 +16,6 @@
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
 """Defines the :func:`apply_license_header` function
 """
-import os
 from .errors import LicensesOutOfDateError
 
 def apply_license_header(license_header, files, check=False, dry_run=False, comment='#'):
@@ -26,7 +25,8 @@ def apply_license_header(license_header, files, check=False, dry_run=False, comm
     :type license_header: str
     :param files: The files to apply the license header to
     :type files: Sequence
-    :param check: `True` if an exception should be raised when some files need updating; `False` otherwise
+    :param check: `True` if an exception should be raised when some files need updating;
+    `False` otherwise
     :type check: bool
     :param dry_run: `True` if header should be added to these files; `False` otherwise
     :type dry_run: bool
@@ -43,17 +43,17 @@ def apply_license_header(license_header, files, check=False, dry_run=False, comm
     for file_name in files:
         with open(file_name) as fp:
             lines = fp.readlines()
-        
+
         old_header, lines = _split_header(lines)
         if old_header != license_header_lines:
             if not dry_run:
                 with open(file_name, 'w') as fp:
                     fp.writelines(license_header_lines + lines)
             files_requiring_update.append(file_name)
-    
+
     if check and files_requiring_update:
         raise LicensesOutOfDateError(files_requiring_update)
-    
+
     return files_requiring_update
 
 def _split_header(lines):
@@ -64,4 +64,7 @@ def _split_header(lines):
     return lines, []
 
 def _license_header_lines(text, comment):
-    return [(comment + ' ' + line.strip() if line.strip() else comment) + '\n' for line in text.splitlines()]
+    return [
+        (comment + ' ' + line.strip() if line.strip() else comment) + '\n'
+        for line in text.splitlines()
+    ]

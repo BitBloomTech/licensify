@@ -14,6 +14,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
+"""Entry point to the licensify command
+"""
 from sys import stdout
 from os import linesep
 from argparse import ArgumentParser
@@ -28,16 +30,27 @@ def _parse_args():
     parser.add_argument('--files', default='*.*', help='Glob to match files')
     parser.add_argument('--comment', default='#', help='Comment string to prepend to header lines')
     parser.add_argument('--dry-run', action='store_true', default=False, help='Perform a dry run')
-    parser.add_argument('--check', action='store_true', default=False, help='Return an error if any files need updating (implies dry run)')
+    parser.add_argument(
+        '--check', action='store_true', default=False,
+        help='Return an error if any files need updating (implies dry run)'
+    )
     return parser.parse_args()
 
-if __name__ == '__main__':
-    args = _parse_args()
-    with open(args.license) as fp:
+def licensify(command_line_args):
+    """licensify with the given command line args
+    """
+    with open(command_line_args.license) as fp:
         license_header = fp.read()
-    result = apply_license_header(license_header, glob(args.directory + '/**/' + args.files), args.check, args.dry_run or args.check)
-    if result:
-        message = 'The following files have been changed: {}'.format(', '.join(result))
-    else:
-        message = 'No files changed'
-    stdout.write(message + linesep)
+        result = apply_license_header(
+            license_header, glob(command_line_args.directory + '/**/' + command_line_args.files),
+            command_line_args.check, command_line_args.dry_run or command_line_args.check
+        )
+        if result:
+            message = 'The following files have been changed: {}'.format(', '.join(result))
+        else:
+            message = 'No files changed'
+        stdout.write(message + linesep)
+
+if __name__ == '__main__':
+    licensify(_parse_args())
+    
