@@ -44,7 +44,7 @@ extras_require = {
 
 setup(
     name=PACKAGE_NAME,
-    license='GPLv3',
+    license='BSD',
     description='Utility to apply license headers to source code files',
     long_description=README_CONTENTS,
     long_description_content_type='text/markdown',
