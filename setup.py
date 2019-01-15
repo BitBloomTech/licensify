@@ -47,6 +47,7 @@ setup(
     license='GPLv3',
     description='Utility to apply license headers to source code files',
     long_description=README_CONTENTS,
+    long_description_content_type='text/markdown',
     author='Simmovation Ltd',
     author_email='info@simmovation.tech',
     url='https://github.com/Simmovation/licensify',
