@@ -8,3 +8,5 @@ __pycache__
 !.pylintrc
 !.coveragerc
 !.circleci
+build
+dist

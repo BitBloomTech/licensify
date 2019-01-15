@@ -38,7 +38,8 @@ tests_require = [
 
 extras_require = {
     'test': tests_require,
-    'build': ['versioneer']
+    'build': ['versioneer'],
+    'publish': ['twine']
 }
 
 setup(
