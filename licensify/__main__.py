@@ -21,7 +21,7 @@ from os import linesep
 from argparse import ArgumentParser
 from glob import glob
 
-from licensify import apply_license_header
+from licensify import apply_license_header, LicensesOutOfDateError
 
 def _parse_args():
     parser = ArgumentParser()
@@ -41,16 +41,25 @@ def licensify(command_line_args):
     """
     with open(command_line_args.license) as fp:
         license_header = fp.read()
-        result = apply_license_header(
-            license_header, glob(command_line_args.directory + '/**/' + command_line_args.files),
-            command_line_args.check, command_line_args.dry_run or command_line_args.check
-        )
+        files = glob(command_line_args.directory + '/**/' + command_line_args.files)
+        try:
+            result = apply_license_header(
+                license_header, files,
+                command_line_args.check, command_line_args.dry_run or command_line_args.check
+            )
+        except LicensesOutOfDateError as error:
+            stdout.write(repr(error))
+            exit(1)
         if result:
             message = 'The following files have been changed: {}'.format(', '.join(result))
         else:
             message = 'No files changed'
         stdout.write(message + linesep)
 
-if __name__ == '__main__':
+def main():
+    """Entrypoint for the application
+    """
     licensify(_parse_args())
-    
+
+if __name__ == '__main__':
+    main()

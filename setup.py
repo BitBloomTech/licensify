@@ -55,5 +55,9 @@ setup(
     install_requires=install_requires,
     tests_require=tests_require,
     extras_require=extras_require,
-    cmdclass=versioneer.get_cmdclass()
+    cmdclass=versioneer.get_cmdclass(),
+    entry_points={
+        'console_scripts': ['licensify=licensify.__main__:main'],
+    },
+    python_requires='>=2.7,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,<4'
 )

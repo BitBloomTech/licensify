@@ -1,2 +1,0 @@
-[report]
-omit = licensify/_version.py,licensify/__main__.py

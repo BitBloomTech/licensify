@@ -12,7 +12,7 @@ def _contents(file):
 @pytest.fixture
 def tmp_file_factory(tmpdir):
     def _factory(contents=''):
-        filename = path.join(tmpdir, 'tmp.py')
+        filename = path.join(str(tmpdir), 'tmp.py')
         with open(filename, 'w') as fp:
             fp.write(contents)
         return filename

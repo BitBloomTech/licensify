@@ -26,8 +26,8 @@ class LicensesOutOfDateError(Exception):
         :param files: The files that are out of date
         :type files: list
         """
-        super().__init__()
+        super(LicensesOutOfDateError, self).__init__()
         self.files = files
 
     def __repr__(self):
-        return '{}({!r})'.format(type(self).__name__, self.files)
+        return '{}({})'.format(type(self).__name__, self.files)
