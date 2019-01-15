@@ -28,6 +28,7 @@ def _parse_args():
     parser.add_argument('license', help='A file containing the liense')
     parser.add_argument('--directory', default='.', help='The directory to apply licenses to')
     parser.add_argument('--files', default='*.*', help='Glob to match files')
+    parser.add_argument('--exclude', default=None, help='Glob to match files to be excluded')
     parser.add_argument('--comment', default='#', help='Comment string to prepend to header lines')
     parser.add_argument('--dry-run', action='store_true', default=False, help='Perform a dry run')
     parser.add_argument(
@@ -45,6 +46,7 @@ def licensify(command_line_args):
             path.join(dirname, f)
             for dirname, _, filenames in walk(command_line_args.directory)
             for f in fnmatch.filter(filenames, command_line_args.files)
+            if not (command_line_args.exclude and fnmatch.fnmatch(f, command_line_args.exclude))
         ]
         try:
             result = apply_license_header(
