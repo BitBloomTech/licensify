@@ -2,6 +2,10 @@
 
 Licensify is a tool for applying license headers to source code files.
 
+[![CircleCI](https://circleci.com/gh/Simmovation/licensify.svg?style=svg)](https://circleci.com/gh/Simmovation/licensify)
+
+## Usage
+
 
 ```
 > python licensify --help
