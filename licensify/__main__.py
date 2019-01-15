@@ -17,9 +17,9 @@
 """Entry point to the licensify command
 """
 from sys import stdout
-from os import linesep
+from os import linesep, walk, path
+import fnmatch
 from argparse import ArgumentParser
-from glob import glob
 
 from licensify import apply_license_header, LicensesOutOfDateError
 
@@ -41,7 +41,11 @@ def licensify(command_line_args):
     """
     with open(command_line_args.license) as fp:
         license_header = fp.read()
-        files = glob(command_line_args.directory + '/**/' + command_line_args.files)
+        files = [
+            path.join(dirname, f)
+            for dirname, _, filenames in walk(command_line_args.directory)
+            for f in fnmatch.filter(filenames, command_line_args.files)
+        ]
         try:
             result = apply_license_header(
                 license_header, files,
