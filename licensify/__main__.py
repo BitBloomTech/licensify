@@ -41,7 +41,7 @@ def licensify(command_line_args):
     """
     with open(command_line_args.license) as fp:
         license_header = fp.read()
-        files = glob(command_line_args.directory + '/**/' + command_line_args.files)
+        files = glob(command_line_args.directory + '/**/' + command_line_args.files, recursive=True)
         try:
             result = apply_license_header(
                 license_header, files,
