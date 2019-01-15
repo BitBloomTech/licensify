@@ -14,10 +14,6 @@ jobs:
     steps:
       - checkout
 
-      - run:
-          name: list versions
-          command: pyenv versions
-
       # Download and cache dependencies
       - restore_cache:
           keys:
@@ -38,7 +34,7 @@ jobs:
           name: run tests
           command: |
             . .venv/bin/activate
-            tox
+            tox -e py36
 
       - save_cache:
           paths:
